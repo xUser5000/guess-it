@@ -7,235 +7,82 @@
   </head>
   <body>
     <div class="min-h-screen bg-gray-100 relative pt-32 pb-32">
-      <nav
-        class="
-          w-full
-          h-16
-          bg-white
-          absolute
-          top-0
-          flex
-          items-center
-          justify-between
-          px-4
-        "
-      >
-        <h1 class="logo font-bold">Guess It</h1>
-        <ul class="social flex items-center justify-around">
-          <li class="mx-2">Home</li>
-          <li class="mx-2">About</li>
-        </ul>
-      </nav>
+  <nav class="w-full h-16 bg-white absolute top-0 flex items-center justify-between px-4">
+    <h1 class="logo font-bold">Guess It</h1>
+    <ul class="social flex items-center justify-around">
+      <li class="mx-2">Home</li>
+      <li class="mx-2">About</li>
+    </ul>
+  </nav>
 
-      <div
-        class="
-          container
-          w-full
-          p-5
-          roudned
-          mx-auto
-          text-center
-          flex
-          items-start
-          justify-around
-          flex-wrap
-        "
-      >
-        <div class="round w-full lg:w-4/6 my-2 bg-white min-h-64 shadow p-2">
-          <div class="text-center text-gray-700">Round 1 of 20</div>
-          <img
-            src="https://i.postimg.cc/W1f2GdL2/fre.jpg"
-            class="rounded h-80 mx-auto my-3 object-cover"
-            alt=""
-          />
-          <div
-            class="
-              words
-              flex
-              items-center
-              my-5
-              mx
-              flex-wrap
-              justify-around
-              w-full
-              lg:w-3/4
-              text-center
-              mx-auto
-            "
-          >
-            <div
-              class="key-wrapper flex items-center justify-center flex-col mx-3"
-            >
-              <div
-                class="
-                  word
-                  shadow
-                  rounded
-                  px-4
-                  py-2
-                  mb-3
-                  cursor-pointer
-                  border
-                  hover:bg-gray-200
-                "
-              >
-                Geeks
-              </div>
-              <div
-                class="key shadow w-6 text-xs border border-gray-700 rounded"
-              >
-                1
-              </div>
-            </div>
-            <div
-              class="key-wrapper flex items-center justify-center flex-col mx-3"
-            >
-              <div
-                class="
-                  word
-                  shadow
-                  rounded
-                  px-4
-                  py-2
-                  mb-3
-                  cursor-pointer
-                  border
-                  hover:bg-gray-200
-                "
-              >
-                Developers
-              </div>
-              <div
-                class="key shadow w-6 text-xs border border-gray-700 rounded"
-              >
-                2
-              </div>
-            </div>
-            <div
-              class="key-wrapper flex items-center justify-center flex-col mx-3"
-            >
-              <div
-                class="
-                  word
-                  shadow
-                  rounded
-                  px-4
-                  py-2
-                  mb-3
-                  cursor-pointer
-                  border
-                  hover:bg-gray-200
-                "
-              >
-                Friends
-              </div>
-              <div
-                class="key shadow w-6 text-xs border border-gray-700 rounded"
-              >
-                3
-              </div>
-            </div>
-            <div
-              class="key-wrapper flex items-center justify-center flex-col mx-3"
-            >
-              <div
-                class="
-                  word
-                  shadow
-                  rounded
-                  px-4
-                  py-2
-                  mb-3
-                  cursor-pointer
-                  border
-                  hover:bg-gray-200
-                "
-              >
-                Nerds
-              </div>
-              <div
-                class="key shadow w-6 text-xs border border-gray-700 rounded"
-              >
-                4
-              </div>
-            </div>
-          </div>
+  <div class="container w-full p-5 roudned mx-auto text-center flex items-start justify-around flex-wrap">
+    <div class="round w-full lg:w-4/6 my-2 bg-white min-h-64 shadow p-2">
+      <div class="text-center text-gray-700">Round 1 of 20</div>
+      <img src="https://i.postimg.cc/W1f2GdL2/fre.jpg" class="rounded h-80 mx-auto my-3 object-cover" alt="" />
+      <div class="words flex items-center my-5 mx flex-wrap justify-around w-full lg:w-3/4 text-center mx-auto">
+        <div class="key-wrapper flex items-center justify-center flex-col mx-3">
+          <div class="word shadow rounded px-4 py-2 mb-3 cursor-pointer border hover:bg-gray-200">Geeks</div>
+          <div class="key shadow w-6 text-xs border border-gray-700 rounded hidden lg:block md:block">1</div>
         </div>
-        <div class="players w-full lg:w-1/6 bg-white min-h-64 shadow p-5 mt-2">
-          <h1 class="text-3xl font-bold mb-4">Players</h1>
-          <div
-            class="
-              flex
-              w-3/4
-              mx-auto
-              my-3
-              flex-wrap
-              items-center
-              justify-around
-            "
-          >
-            <div class="player flex items-center w-full mb-4">
-              <div class="player-avatar">
-                <div class="w-12 h-12 rounded-full bg-blue-900 mr-3"></div>
-              </div>
-              <div class="player-name text-left">
-                <p class="font-semibold">Hefni</p>
-                <p class="font-bold text-sm text-gray-700">
-                  <span class="text-blue-500">12</span> points
-                </p>
-              </div>
-            </div>
-            <div class="player flex items-center w-full mb-4">
-              <div class="player-avatar">
-                <div class="w-12 h-12 rounded-full bg-teal-900 mr-3"></div>
-              </div>
-              <div class="player-name text-left">
-                <p class="font-semibold">Abdullah</p>
-                <p class="font-bold text-sm text-gray-700">
-                  <span class="text-blue-500">10</span> points
-                </p>
-              </div>
-            </div>
-            <div class="player flex items-center w-full mb-4">
-              <div class="player-avatar">
-                <div class="w-12 h-12 rounded-full bg-red-900 mr-3"></div>
-              </div>
-              <div class="player-name text-left">
-                <p class="font-semibold">Ashraf</p>
-                <p class="font-bold text-sm text-gray-700">
-                  <span class="text-blue-500">8</span> points
-                </p>
-              </div>
-            </div>
-            <div class="player flex items-center w-full mb-4">
-              <div class="player-avatar">
-                <div class="w-12 h-12 rounded-full bg-yellow-900 mr-3"></div>
-              </div>
-              <div class="player-name text-left">
-                <p class="font-semibold">Seni</p>
-                <p class="font-bold text-sm text-gray-700">
-                  <span class="text-blue-500">5</span> points
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="key-wrapper flex items-center justify-center flex-col mx-3">
+          <div class="word shadow rounded px-4 py-2 mb-3 cursor-pointer border hover:bg-gray-200">Developers</div>
+          <div class="key shadow w-6 text-xs border border-gray-700 rounded hidden lg:block md:block">2</div>
         </div>
-      </div>
-
-      <div
-        class="
-          footer
-          absolute
-          w-full
-          bottom-0
-          p-2
-          text-center
-          font-bold
-          bg-white
-        "
-      >
-        made with love by hefni, abdallah
+        <div class="key-wrapper flex items-center justify-center flex-col mx-3">
+          <div class="word shadow rounded px-4 py-2 mb-3 cursor-pointer border hover:bg-gray-200">Friends</div>
+          <div class="key shadow w-6 text-xs border border-gray-700 rounded hidden lg:block md:block">3</div>
+        </div>
+        <div class="key-wrapper flex items-center justify-center flex-col mx-3">
+          <div class="word shadow rounded px-4 py-2 mb-3 cursor-pointer border hover:bg-gray-200">Nerds</div>
+          <div class="key shadow w-6 text-xs border border-gray-700 rounded hidden lg:block md:block">4</div>
+        </div>
       </div>
     </div>
+    <div class="players w-full lg:w-1/6 bg-white min-h-64 shadow p-5 mt-2">
+      <h1 class="text-3xl font-bold mb-4">Players</h1>
+      <div class="flex w-4/5 lg:w-full md:w-full mx-auto my-3 flex-wrap items-center justify-around">
+        <div class="player flex items-center w-full mb-4">
+          <div class="player-avatar">
+            <div class="w-12 h-12 rounded-full bg-blue-900 mr-3"></div>
+          </div>
+          <div class="player-name text-left">
+            <p class="font-semibold">Hefni</p>
+            <p class="font-bold text-sm text-gray-700"><span class="text-blue-500">12</span> points</p>
+          </div>
+        </div>
+        <div class="player flex items-center w-full mb-4">
+          <div class="player-avatar">
+            <div class="w-12 h-12 rounded-full bg-teal-900 mr-3"></div>
+          </div>
+          <div class="player-name text-left">
+            <p class="font-semibold">Abdullah</p>
+            <p class="font-bold text-sm text-gray-700"><span class="text-blue-500">10</span> points</p>
+          </div>
+        </div>
+        <div class="player flex items-center w-full mb-4">
+          <div class="player-avatar">
+            <div class="w-12 h-12 rounded-full bg-red-900 mr-3"></div>
+          </div>
+          <div class="player-name text-left">
+            <p class="font-semibold">Ashraf</p>
+            <p class="font-bold text-sm text-gray-700"><span class="text-blue-500">8</span> points</p>
+          </div>
+        </div>
+        <div class="player flex items-center w-full mb-4">
+          <div class="player-avatar">
+            <div class="w-12 h-12 rounded-full bg-yellow-900 mr-3"></div>
+          </div>
+          <div class="player-name text-left">
+            <p class="font-semibold">Seni</p>
+            <p class="font-bold text-sm text-gray-700"><span class="text-blue-500">5</span> points</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer absolute w-full bottom-0 p-2 text-center font-bold bg-white">made with love by hefni, abdallah</div>
+</div>
+
   </body>
 </html>
