@@ -1,0 +1,19 @@
+{
+  "name": "guess-it",
+  "version": "1.0.0",
+  "description": "Compete with other players in guessing the correct word",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xUser5000/guess-it.git"
+  },
+  "author": "Abdallah Ahmed, Mohamed Hefni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xUser5000/guess-it/issues"
+  },
+  "homepage": "https://github.com/xUser5000/guess-it#readme"
+}
