@@ -1,5 +1,13 @@
 const express = require("express");
-const app = express();
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
-app.listen(3000);
-console.log("Server is listening on port 3000");
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+
+io.on("connection", (socket) => {
+  // ...
+});
+
+module.exports = { httpServer };
