@@ -6,21 +6,33 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
-let usernames = [];
+let usernameStore = new Set();
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} connected`);
-  
-  socket.on("enqueue", data => {
-    let { username } = data;
-    
-    if (usernames.indexOf(username) !== -1) {
+
+  socket.on("enqueue", username => {
+
+    if (usernameStore.has(username)) {
       socket.emit("error", "Username is already taken");
       return;
     }
 
-    usernames.push(username);
+    if (socket.username) {
+      usernameStore.delete(socket.username);
+    }
+
+    usernameStore.add(username);
+    socket.username = username;
     socket.emit("in_queue");
+  });
+
+  socket.on("disconnect", () => {
+    if (socket.username) {
+      usernameStore.delete(socket.username);
+      socket.username = null;
+    }
+    console.log(`${socket.id} disconnected`);
   });
 
 });
