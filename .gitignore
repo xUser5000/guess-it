@@ -48,3 +48,6 @@ local-dev/bundle.js
 
 # test
 test
+
+# vs code
+.vscode
