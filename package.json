@@ -4,7 +4,9 @@
   "description": "Compete with other players in guessing the correct word",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin",
+    "dev": "nodemon bin"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.4.0"
   }
 }
