@@ -60,7 +60,6 @@ io.on("connection", (socket) => {
       contestReadyPlayers.get(contestId).add(username);
       if (contestReadyPlayers.get(contestId).size === 3) {
         console.log(`Contest ${contestId} has started!`);
-        // TODO: Start the contest with the first round
       }
     }
   });
