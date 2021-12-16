@@ -79,6 +79,10 @@ class Contest {
     isPlayerBlocked (username) {
         return this._blockedPlayers.has(username);
     }
+
+    getBlockedPlayersCount () {
+        return this._blockedPlayers.size;
+    }
 }
 
 module.exports = { Contest };

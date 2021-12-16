@@ -83,6 +83,15 @@ io.on("connection", (socket) => {
     } else {
       console.log(`Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
       contest.blockPlayer(username);
+      if (contest.getBlockedPlayersCount() === 3) {
+        startRound(contest);
+      }
+    }
+
+    if (contest.getRoundsCount() === 3) {
+      console.log(`Contest ${contestId} has ended`);
+      contests.delete(contestId);
+      io.to(contestId).emit("end", contest.getScore());
     }
   });
 
