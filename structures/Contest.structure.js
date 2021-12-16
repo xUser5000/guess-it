@@ -1,4 +1,4 @@
-const { Round } = require("./round");
+const { Round } = require("./Round.structure");
 
 class Contest {
     

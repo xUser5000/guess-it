@@ -1,6 +1,7 @@
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const { Contest } = require("./structures/Contest.structure");
 const { generateUUID } = require("./util/UUID.util");
 
 const app = express();
@@ -9,7 +10,7 @@ const io = new Server(httpServer);
 
 let usernameStore = new Set();
 let playersQueue = new Map();
-let contestReadyPlayers = new Map();
+let contests = new Map();
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} connected`);
@@ -42,7 +43,7 @@ io.on("connection", (socket) => {
         if (cnt === 0) break;
         currentPlayer.join(contestId);
         currentPlayer.contestId = contestId;
-        contestReadyPlayers.set(contestId, new Set());
+        contests.set(contestId, new Contest());
         playersQueue.delete(username);
         --cnt;
         currentPlayer.emit("matched");
@@ -55,10 +56,12 @@ io.on("connection", (socket) => {
 
   socket.on("ready", () => {
     let { username, contestId } = socket;
-    if (!contestReadyPlayers.get(contestId).has(username)) {
+    let contest = contests.get(contestId);
+    if (!contest.isReady(username)) {
       console.log(`Player ${username} is ready`);
-      contestReadyPlayers.get(contestId).add(username);
-      if (contestReadyPlayers.get(contestId).size === 3) {
+      contest.makeReady(username);
+      if (contest.getReadyPlayersCount() === 3) {
+        contest.startContest();
         console.log(`Contest ${contestId} has started!`);
       }
     }
