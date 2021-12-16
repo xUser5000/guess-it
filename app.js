@@ -3,6 +3,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { Contest } = require("./structures/Contest.structure");
 const { generateUUID } = require("./util/UUID.util");
+const { Dictionary } = require("./util/Dictionary.util");
 
 const app = express();
 const httpServer = createServer(app);
@@ -35,6 +36,8 @@ io.on("connection", (socket) => {
 
     if (playersQueue.size === 3) {
       let contestId = generateUUID();
+      let contest = new Contest(contestId);
+      contests.set(contestId, contest);
       let cnt = 3;
 
       console.log(`Contest ${contestId} has been created with the following players: `);
@@ -43,7 +46,7 @@ io.on("connection", (socket) => {
         if (cnt === 0) break;
         currentPlayer.join(contestId);
         currentPlayer.contestId = contestId;
-        contests.set(contestId, new Contest());
+        contest.addPlayer(username);
         playersQueue.delete(username);
         --cnt;
         currentPlayer.emit("matched");
@@ -63,7 +66,23 @@ io.on("connection", (socket) => {
       if (contest.getReadyPlayersCount() === 3) {
         contest.startContest();
         console.log(`Contest ${contestId} has started!`);
+        startRound(contest);
       }
+    }
+  });
+
+  socket.on("select", choice => {
+    choice = parseInt(choice);
+    let { username, contestId } = socket;
+    let contest = contests.get(contestId);
+    if (contest.isPlayerBlocked(username)) return;
+    if (contest.isCorrectChoice(choice)) {
+      contest.addPointToPlayer(username);
+      console.log(`Correct answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
+      startRound(contest);
+    } else {
+      console.log(`Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
+      contest.blockPlayer(username);
     }
   });
 
@@ -82,5 +101,20 @@ io.on("connection", (socket) => {
   });
 
 });
+
+function startRound (contest) {
+  let round = Dictionary.getInstance().generateRound();
+  contest.addRound(
+    round.getImage(),
+    round.getChoices(),
+    round.getCorrectChoice()
+  );
+  io.to(contest.getId()).emit("round", {
+    image: round.getImage(),
+    choice: round.getChoices(),
+    score: contest.getScore()
+  });
+  console.log(`Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`);
+}
 
 module.exports = { httpServer };

@@ -2,11 +2,17 @@ const { Round } = require("./Round.structure");
 
 class Contest {
     
-    constructor () {
+    constructor (contestId) {
         this._hasContestStarted = false;
         this._readyPlayers = new Set();
         this._score = new Map();
+        this._blockedPlayers = new Set();
         this._rounds = [];
+        this._id = contestId;
+    }
+
+    getId () {
+        return this._id;
     }
 
     addPlayer (username) {
@@ -43,6 +49,7 @@ class Contest {
         let round = new Round(image, choices, correctChoice);
         this._rounds.push(round);
         this._hasContestStarted = true;
+        this._blockedPlayers.clear();
     }
 
     getRoundsCount () {
@@ -51,6 +58,26 @@ class Contest {
 
     addPointToPlayer (username) {
         this._score.set(username, this._score.get(username) + 1);
+    }
+
+    isCorrectChoice (choice) {
+        return this._rounds[this._rounds.length - 1].getCorrectChoice() === choice;
+    }
+
+    getScore () {
+        let obj = {};
+        for (let [key, value] of this._score) {
+            obj[key] = value;
+        }
+        return obj;
+    }
+
+    blockPlayer (username) {
+        this._blockedPlayers.add(username);
+    }
+
+    isPlayerBlocked (username) {
+        return this._blockedPlayers.has(username);
     }
 }
 

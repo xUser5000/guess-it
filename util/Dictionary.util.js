@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { Round } = require("../structures/Round.structure");
 
 /**
  * This class should not be instantiated directly
@@ -8,8 +9,8 @@ class Dictionary {
 
     static instance = null;
     static getInstance () {
-        if (instance === null) instance = new Dictionary();
-        return instance;
+        if (Dictionary.instance === null) Dictionary.instance = new Dictionary();
+        return Dictionary.instance;
     }
 
     _words = [];
@@ -30,10 +31,10 @@ class Dictionary {
             let idx = Math.floor(Math.random() * this._words.length);
             if (!choices.includes(idx)) choices.push(idx);
         }
-        let correctChoice = Math.random() * 4;
+        let correctChoice = Math.floor(Math.random() * 4);
         let image = this._images[ choices[correctChoice] ];
         choices = choices.map(choice => this._words[choice]);
-        return {image, choices, correctChoice};
+        return new Round(image, choices, correctChoice);
     }
 }
 
