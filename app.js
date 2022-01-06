@@ -4,6 +4,7 @@ const { Server } = require("socket.io");
 const { Contest } = require("./structures/Contest.structure");
 const { generateUUID } = require("./util/UUID.util");
 const { Dictionary } = require("./util/Dictionary.util");
+const { CONTEST_PLAYERS, CONTEST_ROUNDS } = require("./constant");
 
 const app = express();
 const httpServer = createServer(app);
@@ -34,11 +35,11 @@ io.on("connection", (socket) => {
 
     console.log(`Player ${socket.username} is in queue`);
 
-    if (playersQueue.size === 3) {
+    if (playersQueue.size === CONTEST_PLAYERS) {
       let contestId = generateUUID();
       let contest = new Contest(contestId);
       contests.set(contestId, contest);
-      let cnt = 3;
+      let cnt = CONTEST_PLAYERS;
 
       console.log(`Contest ${contestId} has been created with the following players: `);
 
@@ -63,7 +64,7 @@ io.on("connection", (socket) => {
     if (!contest.isReady(username)) {
       console.log(`Player ${username} is ready`);
       contest.makeReady(username);
-      if (contest.getReadyPlayersCount() === 3) {
+      if (contest.getReadyPlayersCount() === CONTEST_PLAYERS) {
         contest.startContest();
         console.log(`Contest ${contestId} has started!`);
         startRound(contest);
@@ -83,12 +84,12 @@ io.on("connection", (socket) => {
     } else {
       console.log(`Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
       contest.blockPlayer(username);
-      if (contest.getBlockedPlayersCount() === 3) {
+      if (contest.getBlockedPlayersCount() === CONTEST_PLAYERS) {
         startRound(contest);
       }
     }
 
-    if (contest.getRoundsCount() === 3) {
+    if (contest.getRoundsCount() === CONTEST_ROUNDS) {
       console.log(`Contest ${contestId} has ended`);
       contests.delete(contestId);
       io.to(contestId).emit("end", contest.getScore());
