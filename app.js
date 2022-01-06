@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
         currentPlayer.contestId = contestId;
         contest.addPlayer(username);
         playersQueue.delete(username);
+        usernameStore.delete(username);
         --cnt;
         currentPlayer.emit("matched");
 
