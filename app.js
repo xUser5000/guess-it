@@ -77,22 +77,24 @@ io.on("connection", (socket) => {
     let { username, contestId } = socket;
     let contest = contests.get(contestId);
     if (contest.isPlayerBlocked(username)) return;
-    if (contest.isCorrectChoice(choice)) {
+
+    let isCorrectChoice = contest.isCorrectChoice(choice);
+    if (isCorrectChoice) {
       contest.addPointToPlayer(username);
       console.log(`Correct answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
-      startRound(contest);
     } else {
       console.log(`Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
       contest.blockPlayer(username);
-      if (contest.getBlockedPlayersCount() === CONTEST_PLAYERS) {
-        startRound(contest);
-      }
     }
 
-    if (contest.getRoundsCount() === CONTEST_ROUNDS) {
-      console.log(`Contest ${contestId} has ended`);
-      contests.delete(contestId);
-      io.to(contestId).emit("end", contest.getScore());
+    if (isCorrectChoice || contest.getBlockedPlayersCount() === CONTEST_PLAYERS) {
+      if (contest.getRoundsCount() === CONTEST_ROUNDS) {
+        console.log(`Contest ${contestId} has ended`);
+        contests.delete(contestId);
+        io.to(contestId).emit("end", contest.getScore());
+      } else {
+        startRound(contest);
+      }
     }
   });
 
