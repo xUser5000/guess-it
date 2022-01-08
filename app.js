@@ -44,13 +44,11 @@ io.on("connection", (socket) => {
       console.log(`Contest ${contestId} has been created with the following players: `);
 
       for (let [username, currentPlayer] of playersQueue) {
-        if (cnt === 0) break;
         currentPlayer.join(contestId);
         currentPlayer.contestId = contestId;
         contest.addPlayer(username);
         playersQueue.delete(username);
         usernameStore.delete(username);
-        --cnt;
         currentPlayer.emit("matched");
 
         console.log(`   - ${username}`);
