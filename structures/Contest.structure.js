@@ -41,12 +41,9 @@ class Contest {
 
     /**
      * 
-     * @param {String} image Image url
-     * @param {String[]} choices Words that can be chosen by the players 
-     * @param {Number} correctChoice The index of the correct choice
+     * @param round The details of the round to be added
      */
-    addRound (image, choices, correctChoice) {
-        let round = new Round(image, choices, correctChoice);
+    addRound (round) {
         this._rounds.push(round);
         this._hasContestStarted = true;
         this._blockedPlayers.clear();

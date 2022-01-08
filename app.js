@@ -44,13 +44,11 @@ io.on("connection", (socket) => {
       console.log(`Contest ${contestId} has been created with the following players: `);
 
       for (let [username, currentPlayer] of playersQueue) {
-        if (cnt === 0) break;
         currentPlayer.join(contestId);
         currentPlayer.contestId = contestId;
         contest.addPlayer(username);
         playersQueue.delete(username);
         usernameStore.delete(username);
-        --cnt;
         currentPlayer.emit("matched");
 
         console.log(`   - ${username}`);
@@ -117,14 +115,11 @@ io.on("connection", (socket) => {
 
 function startRound (contest) {
   let round = Dictionary.getInstance().generateRound();
-  contest.addRound(
-    round.getImage(),
-    round.getChoices(),
-    round.getCorrectChoice()
-  );
+  contest.addRound(round);
   io.to(contest.getId()).emit("round", {
+    id: contest.getRoundsCount(),
     image: round.getImage(),
-    choice: round.getChoices(),
+    choices: round.getChoices(),
     score: contest.getScore()
   });
   console.log(`Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`);
