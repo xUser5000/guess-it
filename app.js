@@ -117,14 +117,11 @@ io.on("connection", (socket) => {
 
 function startRound (contest) {
   let round = Dictionary.getInstance().generateRound();
-  contest.addRound(
-    round.getImage(),
-    round.getChoices(),
-    round.getCorrectChoice()
-  );
+  contest.addRound(round);
   io.to(contest.getId()).emit("round", {
+    id: contest.getRoundsCount(),
     image: round.getImage(),
-    choice: round.getChoices(),
+    choices: round.getChoices(),
     score: contest.getScore()
   });
   console.log(`Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`);
