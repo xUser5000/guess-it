@@ -120,7 +120,8 @@ function startRound (contest) {
     id: contest.getRoundsCount(),
     image: round.getImage(),
     choices: round.getChoices(),
-    score: contest.getScore()
+    score: contest.getScore(),
+    maxRounds: CONTEST_ROUNDS
   });
   console.log(`Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`);
 }
