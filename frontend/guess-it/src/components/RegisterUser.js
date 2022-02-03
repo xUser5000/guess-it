@@ -9,7 +9,7 @@ const RegisterUser = (props) => {
 
 
   return (
-    <div className="RegisterUser">
+    <div className="RegisterUser bg-white p-5 container lg:w-3/4 mx-auto shadow rounded">
       <h1 className="font-bold my-2 text-3xl">Guess it</h1>
       <div
         className="
