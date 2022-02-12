@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { PORT } = require("./constant");
+const PORT = 5000;
 const { httpServer } = require("./app");
 
 httpServer.listen(PORT, () => console.log(`Listening on port ${PORT}`));
