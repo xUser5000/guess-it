@@ -2,7 +2,6 @@ import React from "react";
 import Words from "./Words";
 import Players from "./Players";
 const Round = (props) => {
-    console.log(props.round)
   return (
     <div className="container w-full p-5 roudned mx-auto text-center flex items-start justify-around flex-wrap">
       <div className="round w-full lg:w-4/6 my-2 bg-white min-h-64 shadow p-2">

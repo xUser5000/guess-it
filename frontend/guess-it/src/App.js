@@ -42,7 +42,7 @@ function App() {
                  "
         >
           {(isRoundReady && <Contest socket={socket} />) ||
-            (isContestEnd && <Leaderboard results={finalResults} />) || (
+            (isContestEnd && <Leaderboard results={finalResults} setIsRoundReady={setIsRoundReady} setIsContestEnd={setIsContestEnd} />) || (
               <RegisterUser
                 socket={socket}
                 username={username}
