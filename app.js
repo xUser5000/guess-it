@@ -1,14 +1,27 @@
 const express = require("express");
+const cors = require("cors");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { Contest } = require("./structures/Contest.structure");
 const { generateUUID } = require("./util/UUID.util");
 const { Dictionary } = require("./util/Dictionary.util");
-const { CONTEST_PLAYERS, CONTEST_ROUNDS } = require("./constant");
+const { CONTEST_PLAYERS, CONTEST_ROUNDS, CORS_ORIGINS } = require("./constant");
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: [CORS_ORIGINS],
+    credentials: true,
+  },
+});
+
+app.use(
+  cors({
+    origin: [CORS_ORIGINS],
+    credentials: true,
+  })
+);
 
 let usernameStore = new Set();
 let playersQueue = new Map();
@@ -17,8 +30,7 @@ let contests = new Map();
 io.on("connection", (socket) => {
   console.log(`${socket.id} connected`);
 
-  socket.on("enqueue", username => {
-
+  socket.on("enqueue", (username) => {
     if (usernameStore.has(username)) {
       socket.emit("error", "Username is already taken");
       return;
@@ -41,7 +53,9 @@ io.on("connection", (socket) => {
       contests.set(contestId, contest);
       let cnt = CONTEST_PLAYERS;
 
-      console.log(`Contest ${contestId} has been created with the following players: `);
+      console.log(
+        `Contest ${contestId} has been created with the following players: `
+      );
 
       for (let [username, currentPlayer] of playersQueue) {
         currentPlayer.join(contestId);
@@ -54,7 +68,6 @@ io.on("connection", (socket) => {
         console.log(`   - ${username}`);
       }
     }
-
   });
 
   socket.on("ready", () => {
@@ -71,26 +84,29 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("select", choice => {
+  socket.on("select", (choice) => {
     choice = parseInt(choice);
     let { username, contestId } = socket;
     let contest = contests.get(contestId);
-    if (
-      !username ||
-      !contestId ||
-      contest.isPlayerBlocked(username)
-    ) return;
+    if (!username || !contestId || contest.isPlayerBlocked(username)) return;
 
     let isCorrectChoice = contest.isCorrectChoice(choice);
     if (isCorrectChoice) {
       contest.addPointToPlayer(username);
-      console.log(`Correct answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
+      console.log(
+        `Correct answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`
+      );
     } else {
-      console.log(`Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`);
+      console.log(
+        `Wrong answer for player ${username} in contest ${contestId} round ${contest.getRoundsCount()}`
+      );
       contest.blockPlayer(username);
     }
 
-    if (isCorrectChoice || contest.getBlockedPlayersCount() === CONTEST_PLAYERS) {
+    if (
+      isCorrectChoice ||
+      contest.getBlockedPlayersCount() === CONTEST_PLAYERS
+    ) {
       if (contest.getRoundsCount() === CONTEST_ROUNDS) {
         console.log(`Contest ${contestId} has ended`);
         contests.delete(contestId);
@@ -109,15 +125,14 @@ io.on("connection", (socket) => {
     if (playersQueue.has(socket.username)) {
       playersQueue.delete(socket.username);
     }
-    
+
     socket.username = null;
     socket.contestId = null;
     console.log(`${socket.id} disconnected`);
   });
-
 });
 
-function startRound (contest) {
+function startRound(contest) {
   let round = Dictionary.getInstance().generateRound();
   contest.addRound(round);
   io.to(contest.getId()).emit("round", {
@@ -125,9 +140,11 @@ function startRound (contest) {
     image: round.getImage(),
     choices: round.getChoices(),
     score: contest.getScore(),
-    maxRounds: CONTEST_ROUNDS
+    maxRounds: CONTEST_ROUNDS,
   });
-  console.log(`Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`);
+  console.log(
+    `Round ${contest.getRoundsCount()} in contest ${contest.getId()} began`
+  );
 }
 
 module.exports = { httpServer };
