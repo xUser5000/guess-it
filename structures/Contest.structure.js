@@ -64,11 +64,14 @@ class Contest {
   }
 
   getScore() {
-    let obj = {};
+    let users = [];
     for (let [key, value] of this._score) {
-      obj[key] = value;
+      let user = {};
+      user.name = key;
+      user.score = value;
+      users.push(user);
     }
-    return obj;
+    return users;
   }
 
   blockPlayer(username) {
