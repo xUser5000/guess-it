@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 
 const Words = (props) => {
   var [isCorrect, setIscorrect] = useState(true);
+  const allowedKeys = ["1", "2", "3", "4"]
   useEffect(() => {
     setIscorrect(true);
     props.socket.on("isCorrect", (isCorrect) => {
       setIscorrect(isCorrect);
     });
+
   }, [props.choices]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      let key = e.key;
+      if(allowedKeys.includes(key)) {
+        props.socket.emit("select", +key--);
+      }
+    });
+  }, [])
 
   return (
     <div className="words flex items-center my-5 mx flex-wrap justify-around w-full lg:w-3/4 text-center mx-auto">
@@ -21,7 +32,7 @@ const Words = (props) => {
               "word shadow rounded px-4 py-2 mb-3 cursor-pointer border " +
               (isCorrect ? "bg-gray-100   hover:bg-gray-200  " : "bg-red-500 text-white cursor-not-allowed")
             }
-            
+
             onClick={(e) => {
               e.preventDefault();
               if (isCorrect) {

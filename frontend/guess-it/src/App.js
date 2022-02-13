@@ -6,7 +6,7 @@ import Nav from "./components/Nav";
 import Contest from "./components/Contest";
 import Leaderboard from "./components/LeaderBoard";
 
-const ENDPOINT = "http://127.0.0.1:5000";
+const ENDPOINT = "http://localhost:5000";
 
 const socket = socketIOClient(ENDPOINT);
 function App() {
