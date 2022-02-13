@@ -15,7 +15,7 @@ const Words = (props) => {
     window.addEventListener('keydown', (e) => {
       let key = e.key;
       if(allowedKeys.includes(key)) {
-        props.socket.emit("select", +key--);
+        props.socket.emit("select", --key);
       }
     });
   }, [])
