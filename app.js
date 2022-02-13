@@ -140,7 +140,7 @@ function startRound(contest) {
     id: contest.getRoundsCount(),
     image: round.getImage(),
     choices: round.getChoices(),
-    score: contest.getScore(),
+    users: contest.getScore(),
     maxRounds: CONTEST_ROUNDS,
   });
   console.log(
