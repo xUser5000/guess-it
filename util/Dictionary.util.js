@@ -19,6 +19,7 @@ class Dictionary {
     let lines = fs.readFileSync("nouns.txt", "utf-8").split("\n");
     lines.forEach((line) => {
       let tokens = line.split(" ");
+      if (!tokens[1]) return;
       this._words.push(tokens[0]);
       this._images.push(tokens[1]);
     });
