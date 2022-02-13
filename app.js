@@ -88,7 +88,8 @@ io.on("connection", (socket) => {
     choice = parseInt(choice);
     let { username, contestId } = socket;
     let contest = contests.get(contestId);
-    if (!username || !contestId || contest.isPlayerBlocked(username)) return;
+    if (!username || !contestId || !contest) return;
+    if (contest.isPlayerBlocked(username)) return;
 
     let isCorrectChoice = contest.isCorrectChoice(choice);
     socket.emit("isCorrect", isCorrectChoice)
