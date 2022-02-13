@@ -91,6 +91,7 @@ io.on("connection", (socket) => {
     if (!username || !contestId || contest.isPlayerBlocked(username)) return;
 
     let isCorrectChoice = contest.isCorrectChoice(choice);
+    socket.emit("isCorrect", isCorrectChoice)
     if (isCorrectChoice) {
       contest.addPointToPlayer(username);
       console.log(
