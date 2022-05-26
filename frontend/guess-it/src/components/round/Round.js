@@ -13,7 +13,7 @@ const Round = (props) => {
         <LazyLoadImage
           afterLoad={() => setIsLoaded(true)}
           beforeLoad={() => setIsLoaded(false)}
-          src={props.round.image}
+          src={`http://localhost:5000/compress?url=${props.round.image}`}
           className="rounded h-80 mx-auto my-3 object-cover"
           onError={e => {
             e.target.src = "https://www.leadershipmartialartsct.com/wp-content/uploads/2017/04/default-image-620x600.jpg"
