@@ -18,6 +18,11 @@ class Contest {
     this._score.set(username, 0);
   }
 
+  removePlayer(username) {
+    this._score.delete(username)
+    this._readyPlayers.delete(username)
+  }
+
   makeReady(username) {
     this._readyPlayers.add(username);
   }
@@ -81,7 +86,9 @@ class Contest {
   isPlayerBlocked(username) {
     return this._blockedPlayers.has(username);
   }
-
+  isPlayersBlocked() {
+    return this._blockedPlayers.size == this._readyPlayers.size
+  }
   getBlockedPlayersCount() {
     return this._blockedPlayers.size;
   }

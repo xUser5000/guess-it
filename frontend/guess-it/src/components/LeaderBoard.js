@@ -1,13 +1,13 @@
 import React from "react";
 
 const Leaderboard = (props) => {
-  let colors = ["green", "blue"];
+  let colors = ["green", "blue", "red", "indigo", "yellow"];
   return (
     <div className="players w-full lg:w-2/6 bg-white min-h-64 shadow p-5 mt-2 mx-auto">
       <h1 className="text-3xl font-bold mb-4">LeaderBoard</h1>
-      <div className="flex w-4/5 lg:w-full md:w-full mx-auto my-3 flex-wrap items-center justify-around">
+      <div className="flex w-4/5 lg:w-full md:w-full mx-auto my-3 flex-wrap items-center justify-around flex-col-reverse">
         {props.results
-          .sort((a, b) => a.score < b.score)
+          .sort((a, b) => (a.score < b.score))
           .map((player, i) => (
             <div
               className="player flex items-center w-full mb-4"
